@@ -20,6 +20,7 @@ public class ShippingPage {
     By phonenum = By.xpath("//input[@name='telephone']");
     By allowcookies = By.xpath("//button[@class='amgdprcookie-button -allow']");
     By next = By.xpath("//*[@id=\"shipping-method-buttons-container\"]/div/button");
+
     public ShippingPage(WebDriver driver) {
         this.driver = driver;
 
@@ -42,8 +43,6 @@ public class ShippingPage {
         s.selectByVisibleText("United States");
         driver.findElement(phonenum).sendKeys("250-618-0886");
 
-        Thread.sleep(2000);
-        driver.findElement(allowcookies).click();
         Thread.sleep(2000);
         driver.findElement(next).click();
     }

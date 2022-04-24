@@ -1,5 +1,6 @@
 package pageobjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,6 +45,34 @@ public class HomePage {
 
     }
 
+    public void acceptPopupandCookies() throws InterruptedException {
+
+
+        boolean popup = driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']")).isDisplayed();
+        if (popup) {
+            driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']//span[contains(text(),'Continue shopping')]")).click();
+            System.out.println("Popup Accepted");
+
+
+        } else {
+            System.out.println("Popup is not displayed");
+
+        }
+
+        Thread.sleep(3000);
+
+        boolean cookies = driver.findElement(By.xpath("//button[@title='Allow Cookies']")).isDisplayed();
+
+        if (cookies) {
+            driver.findElement(By.xpath("//button[@title='Allow Cookies']")).click();
+            System.out.println("Cookies accepted");
+
+        } else {
+            System.out.println("Cookies alert is not displayed");
+        }
+
+
+    }
     /*public boolean isHomePageSolutionsTabDisplayed() {
 
         return solutions.getText().contains("SOLUTIONS");
@@ -58,4 +87,20 @@ public class HomePage {
 
         return resources.getText().contains("RESOURCES");
     }*/
+
+    public void acceptpopup() {
+
+        boolean popup = driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']")).isDisplayed();
+        if (popup) {
+            driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']//span[contains(text(),'Continue shopping')]")).click();
+            System.out.println("Popup Accepted");
+
+
+        } else {
+            System.out.println("Popup is not displayed");
+
+        }
+
+
+    }
 }

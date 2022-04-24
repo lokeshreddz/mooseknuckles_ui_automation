@@ -1,5 +1,6 @@
 package testbase;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -14,7 +15,7 @@ public class BaseClass {
 
 
     //@BeforeClass
-    public void setup() {
+    public void setup() throws InterruptedException {
         String browserName = properties.getProperty("browser");
 
         if (browserName.equals("chrome")) {
@@ -27,20 +28,17 @@ public class BaseClass {
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(properties.getProperty("url"));
+
+        Thread.sleep(2000);
+
+        //driver.findElement(By.xpath("//*[@id=\"eshopworld-modal-window\"]/div/div/form/fieldset/div[2]/div/button/span")).click();
     }
 
     // @AfterClass
 
-    public void close() throws InterruptedException {
-        Thread.sleep(5000);
+    public void close() {
         driver.close();
-
-
-    }
-
-    public void acceptPopup() {
 
 
     }

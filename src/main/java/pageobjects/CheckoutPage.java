@@ -15,11 +15,11 @@ public class CheckoutPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void clickCheckout() throws InterruptedException {
-        Thread.sleep(2000);
+    public void clickCheckout() {
+
         driver.findElement(checkout).click();
 
-        Thread.sleep(4000);
+
     }
 
 
