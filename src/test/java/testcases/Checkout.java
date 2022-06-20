@@ -6,31 +6,16 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.*;
+import testbase.BaseClass;
+import util.PropertyUtils;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
-public class Checkout {
-
-    String path = System.getProperty("user.dir");   // return project folder path
-    String driverpath = path + "\\drivers\\chromedriver.exe";   // return driver folder path
-    private WebDriver driver;
-    private String url = "https://mcstaging.mooseknucklescanada.com/en/";
-
-    @BeforeMethod
-    public void launch() {
-        System.setProperty("webdriver.chrome.driver", driverpath);
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        driver.manage().window().maximize();
-        //driver.manage().deleteAllCookies();
-        driver.get(url);
-
-    }
+public class Checkout extends BaseClass {
 
     @Test
     public void E2Eflow() throws InterruptedException {
-
+        setup(PropertyUtils.getValue("browser"));
         HomePage homePage = new HomePage(driver);
         Thread.sleep(2000);
         homePage.acceptPopupandCookies();

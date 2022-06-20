@@ -1,45 +1,43 @@
 package testbase;
 
-import org.openqa.selenium.By;
+import constants.FrameworkConstants;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.support.PageFactory;
+import util.PropertyUtils;
 
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BaseClass {
 
-    private static WebDriver driver;
-    private Properties properties;
+    public WebDriver driver;
 
 
-    //@BeforeClass
-    public void setup() throws InterruptedException {
-        String browserName = properties.getProperty("browser");
+    public void setup(String browser) throws InterruptedException {
 
-        if (browserName.equals("chrome")) {
-            System.setProperty("webdriver.gecko.driver", "C:\\SeleniumProject\\demoframwork\\geckodriver.exe");
-            driver = new ChromeDriver();
-        } else if (browserName.equals("FF")) {
-            System.setProperty("webdriver.gecko.driver", "C:\\SeleniumProject\\demoframwork\\geckodriver.exe");
+        if (browser.equals(PropertyUtils.getValue("browser"))) {
+            Map<String, Object> prefs = new HashMap<>();
+            prefs.put("profile.default_content_setting_values.notifications", 2);
+            ChromeOptions options = new ChromeOptions();
+            options.setExperimentalOption("prefs", prefs);
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver(options);
+
+        } else if (browser.equals("firefox")) {
+            WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
         }
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
-        driver.get(properties.getProperty("url"));
+        driver.get(PropertyUtils.getValue("url"));
 
         Thread.sleep(2000);
-
-        //driver.findElement(By.xpath("//*[@id=\"eshopworld-modal-window\"]/div/div/form/fieldset/div[2]/div/button/span")).click();
-    }
-
-    // @AfterClass
-
-    public void close() {
-        driver.close();
-
 
     }
 

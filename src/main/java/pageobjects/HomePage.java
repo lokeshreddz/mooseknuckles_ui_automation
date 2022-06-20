@@ -1,12 +1,22 @@
 package pageobjects;
 
+import javafx.scene.chart.Chart;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import testbase.BaseClass;
 
-public class HomePage {
+public class HomePage extends BaseClass {
+
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public
+
+    WebDriver driver;
 
     @FindBy(xpath = "//a[@class='level-top mobile-bold hovered']//span[contains(text(),'Women')]")
     WebElement womenTitle;
@@ -20,14 +30,6 @@ public class HomePage {
     WebElement salesTitle;
     @FindBy(xpath = "//a[@class='level-top mobile-bold hovered']//span[contains(text(),'Moose Knuckles x Eckhaus Latta')]")
     WebElement Moose_Knuckles_x_Eckhaus_Latta;
-    private WebDriver driver;
-
-
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-
-        PageFactory.initElements(driver, this);
-    }
 
 
     public boolean verifyHomePageTitle() {
@@ -70,6 +72,16 @@ public class HomePage {
         } else {
             System.out.println("Cookies alert is not displayed");
         }
+        boolean newsLetter = driver.findElement(By.xpath("(//p[contains(text(),'Subscribe to our Newsletter')])[3]")).isDisplayed();
+        if (newsLetter) {
+            driver.findElement(By.xpath("//div[@class='mbdialog popupid11']//a[@class='dialogClose style1 overlay2']")).click();
+            System.out.println("NewsLetter Closed");
+
+        } else {
+            System.out.println("NewsLetter is not displayed");
+        }
+
+
 
 
     }
