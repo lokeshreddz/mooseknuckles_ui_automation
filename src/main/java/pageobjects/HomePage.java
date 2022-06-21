@@ -1,10 +1,15 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import testbase.BaseClass;
+
+import java.time.Duration;
 
 public class HomePage extends BaseClass {
 
@@ -47,7 +52,6 @@ public class HomePage extends BaseClass {
 
     public void acceptPopupandCookies() throws InterruptedException {
 
-
         boolean popup = driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']")).isDisplayed();
         if (popup) {
             driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']//span[contains(text(),'Continue shopping')]")).click();
@@ -77,40 +81,23 @@ public class HomePage extends BaseClass {
 
         } else {
             System.out.println("NewsLetter is not displayed");
-        }
-
-
-
-
-    }
-    /*public boolean isHomePageSolutionsTabDisplayed() {
-
-        return solutions.getText().contains("SOLUTIONS");
-    }
-
-    public boolean isHomePageIndustriesTabDisplayed() {
-
-        return industries.getText().contains("INDUSTRIES");
-    }
-
-    public boolean isHomePageResourcesTabDisplayed() {
-
-        return resources.getText().contains("RESOURCES");
-    }*/
-
-    public void acceptpopup() {
-
-        boolean popup = driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']")).isDisplayed();
-        if (popup) {
-            driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']//span[contains(text(),'Continue shopping')]")).click();
-            System.out.println("Popup Accepted");
-
-
-        } else {
-            System.out.println("Popup is not displayed");
 
         }
 
-
     }
-}
+        public void acceptpopup () {
+
+            boolean popup = driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']")).isDisplayed();
+            if (popup) {
+                driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']//span[contains(text(),'Continue shopping')]")).click();
+                System.out.println("Popup Accepted");
+
+
+            } else {
+                System.out.println("Popup is not displayed");
+
+            }
+
+
+        }
+    }

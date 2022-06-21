@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import util.PropertyUtils;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +32,8 @@ public class BaseClass {
         }
 
         driver.manage().window().maximize();
+        driver.manage().timeouts()
+                .implicitlyWait(Duration.ofSeconds(Long.parseLong(PropertyUtils.getValue("implicit.wait"))));
         driver.manage().deleteAllCookies();
         driver.get(PropertyUtils.getValue("url"));
 

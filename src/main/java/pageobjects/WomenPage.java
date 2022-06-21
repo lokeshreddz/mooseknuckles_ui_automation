@@ -5,9 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class WomenPage {
-    By firstproduct = By.xpath("//a[normalize-space()='NOOTKA PANTS']");
+    By firstproduct = By.xpath("(//li[@class='item product product-item']//strong[contains(@class,'product name product-item-name')]/a)[2]");
     private WebDriver driver;
 
     public WomenPage(WebDriver driver) {
@@ -16,14 +21,14 @@ public class WomenPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void navigateToWomenModule() {
+    public void navigateToWomenModule() throws InterruptedException {
 
-        WebElement hover = driver.findElement(By.xpath("/html[1]/body[1]/div[2]/header[1]/div[2]/div[1]/div[1]/div[1]/nav[1]/ul[1]/li[1]/a[1]/span[1]"));
+        Thread.sleep(4000);
 
+        WebElement hover = driver.findElement(By.xpath("//span[text()='Women']/parent::a"));
+        WebElement hover1 = driver.findElement(By.xpath("//span[text()='Parkas']/parent::a"));
         Actions act = new Actions(driver);
-        act.moveToElement(hover).perform();
-
-        driver.findElement(By.xpath("//a[.='Fall/Winter New Arrivals']")).click();
+        act.moveToElement(hover).moveToElement(hover1).click().build().perform();
 
     }
 
