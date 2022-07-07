@@ -5,11 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class WomenPage {
     By firstproduct = By.xpath("(//li[@class='item product product-item']//strong[contains(@class,'product name product-item-name')]/a)[2]");

@@ -1,51 +1,45 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.PageFactory;
 import testbase.BaseClass;
 
-import java.time.Duration;
-
 public class HomePage extends BaseClass {
+    private final WebDriver driver;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
+
     }
 
-    public
 
-    WebDriver driver;
-
-    @FindBy(xpath = "//a[@class='level-top mobile-bold hovered']//span[contains(text(),'Women')]")
-    WebElement womenTitle;
-    @FindBy(xpath = "//a[contains(text(),'About')]")
-    WebElement menTitle;
-    @FindBy(xpath = "(//ul[@id=\"desktop-menu\"]/li/a)[1]")
-    WebElement kidTitle;
-    @FindBy(xpath = "(//ul[@id=\"desktop-menu\"]/li/a)[2]")
-    WebElement collectionTitle;
-    @FindBy(xpath = "(//ul[@id=\"desktop-menu\"]/li/a)[3]")
-    WebElement salesTitle;
-    @FindBy(xpath = "//a[@class='level-top mobile-bold hovered']//span[contains(text(),'Moose Knuckles x Eckhaus Latta')]")
-    WebElement Moose_Knuckles_x_Eckhaus_Latta;
+    @FindBy(xpath = "(//span[text()='Women']/parent::a)[1]")
+    public WebElement womenTitle;
+    @FindBy(xpath = "(//span[text()='Men']/parent::a)[1]")
+    public WebElement menTitle;
+    @FindBy(xpath = "(//span[text()='Kids']/parent::a)[1]")
+    public WebElement kidTitle;
+    @FindBy(xpath = "(//span[text()='Collections']/parent::a)[1]")
+    public WebElement collectionTitle;
+    @FindBy(xpath = "(//span[text()='Sale']/parent::a)[1]")
+    public WebElement salesTitle;
 
 
-    public boolean verifyHomePageTitle() {
+    public boolean verifyHomePageTitleAndMenu() {
 
         String title = driver.getTitle();
 
-        String expected_title = "Moose Knuckles Canada | Official Website | We Bring The Heat  | Moose Knuckles";
+        String expected_title = "Moose Knuckles Canada | Official Website | We Bring The Heat | Moose Knuckles";
 
-        if (title.equals(expected_title)) {
-            System.out.println("Homepage title is " + title);
+        if (title.equals(expected_title) && womenTitle.isDisplayed() && menTitle.isDisplayed() && kidTitle.isDisplayed() && collectionTitle.isDisplayed() && salesTitle.isDisplayed()) {
+            System.out.println("Homepage title and Menu is displayed ");
             return true;
         } else
-            System.out.println("Home Page title is not displayed and  " + title);
+            System.out.println("HomePage content is not displaying as expected  ");
         return false;
 
     }
@@ -85,19 +79,20 @@ public class HomePage extends BaseClass {
         }
 
     }
-        public void acceptpopup () {
 
-            boolean popup = driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']")).isDisplayed();
-            if (popup) {
-                driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']//span[contains(text(),'Continue shopping')]")).click();
-                System.out.println("Popup Accepted");
+    public void acceptPopUp() {
+
+        boolean popup = driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']")).isDisplayed();
+        if (popup) {
+            driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']//span[contains(text(),'Continue shopping')]")).click();
+            System.out.println("Popup Accepted");
 
 
-            } else {
-                System.out.println("Popup is not displayed");
-
-            }
-
+        } else {
+            System.out.println("Popup is not displayed");
 
         }
+
+
     }
+}
