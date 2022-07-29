@@ -26,10 +26,12 @@ public class CheckoutTest extends BaseClass {
         checkoutPage.clickCheckout();
         ShippingPage shippingPage = new ShippingPage(driver);
         shippingPage.passShippingDetails();
+        PaymentPage paymentPage = new PaymentPage(driver);
+        paymentPage.ClickPlaceOrder();
 
     }
 
-    @AfterMethod
+   @AfterMethod
     public void teardown() {
 
         driver.close();

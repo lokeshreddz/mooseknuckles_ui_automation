@@ -34,13 +34,13 @@ public class ShippingPage {
 
         driver.findElement(LastName).sendKeys("G");
 
-        driver.findElement(StreetAddress).sendKeys("283 Roger Street");
+        driver.findElement(StreetAddress).sendKeys("2200 Rue Ward");
 
-        driver.findElement(City).sendKeys("Nanaimo");
+        driver.findElement(City).sendKeys("Montréal");
 
-        driver.findElement(PostalCode).sendKeys("12345-6789");
+        driver.findElement(PostalCode).sendKeys("H4M2R1");
         Select s = new Select(driver.findElement(country));
-        s.selectByVisibleText("United States");
+        s.selectByVisibleText("Cambodia");
         driver.findElement(phonenum).sendKeys("250-618-0886");
 
         Thread.sleep(2000);
