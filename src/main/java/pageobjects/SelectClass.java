@@ -12,7 +12,6 @@ public class SelectClass {
     public void selectvalue(WebElement ele, String value) {
         Select s = new Select(ele);
         s.selectByValue(value);
-        ;
 
     }
 

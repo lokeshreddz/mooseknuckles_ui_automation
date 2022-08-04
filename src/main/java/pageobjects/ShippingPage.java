@@ -28,20 +28,20 @@ public class ShippingPage {
     }
 
     public void passShippingDetails() throws InterruptedException {
-        driver.findElement(EmailAddress).sendKeys("asuri.k3108@gmail.com");
+        driver.findElement(EmailAddress).sendKeys("Poornima@gmail.com");
         Thread.sleep(2000);
-        driver.findElement(FirstName).sendKeys("Asuri");
+        driver.findElement(FirstName).sendKeys("Poornima");
 
-        driver.findElement(LastName).sendKeys("Kesari");
+        driver.findElement(LastName).sendKeys("G");
 
-        driver.findElement(StreetAddress).sendKeys("504-2200 Rue Ward");
+        driver.findElement(StreetAddress).sendKeys("2200 Rue Ward");
 
-        driver.findElement(City).sendKeys("Saint Laurent");
+        driver.findElement(City).sendKeys("Montréal");
 
         driver.findElement(PostalCode).sendKeys("H4M2R1");
         Select s = new Select(driver.findElement(country));
-        s.selectByVisibleText("United States");
-        driver.findElement(phonenum).sendKeys("4387253636");
+        s.selectByVisibleText("Cambodia");
+        driver.findElement(phonenum).sendKeys("250-618-0886");
 
         Thread.sleep(2000);
         driver.findElement(next).click();
