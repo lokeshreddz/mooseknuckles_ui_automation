@@ -20,7 +20,7 @@ public class WomenPage {
 
         Thread.sleep(4000);
 
-        WebElement hover = driver.findElement(By.xpath("//span[text()='Women']/parent::a"));
+        WebElement hover = driver.findElement(By.xpath("//a[text()='Women']/parent::li"));
         WebElement hover1 = driver.findElement(By.xpath("//span[text()='Parkas']/parent::a"));
         Actions act = new Actions(driver);
         act.moveToElement(hover).moveToElement(hover1).click().build().perform();

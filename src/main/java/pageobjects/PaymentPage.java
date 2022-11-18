@@ -2,7 +2,6 @@ package pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
@@ -25,8 +24,7 @@ public class PaymentPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void ClickPlaceOrder()
-    {
+    public void ClickPlaceOrder() {
         driver.findElement(selectcrd).click();
         driver.findElement(crdnum).sendKeys("4111111111111111");
 
@@ -40,6 +38,6 @@ public class PaymentPage {
 
         driver.findElement(placeorder).click();
 
-       // driver.findElement(saveadd).click();
+        // driver.findElement(saveadd).click();
     }
 }

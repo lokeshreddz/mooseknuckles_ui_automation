@@ -1,33 +1,41 @@
 package pageobjects;
 
+import lombok.SneakyThrows;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import testbase.BaseClass;
+import pagebase.PageBase;
 
-public class HomePage extends BaseClass {
-    private final WebDriver driver;
+import java.awt.*;
 
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+
+public class HomePage extends PageBase {
+    @FindBy(xpath = "(//a[text()='Women']/parent::li)")
+    public WebElement womenTitle;
+    @FindBy(xpath = "(//a[text()='Men']/parent::li)")
+    public WebElement menTitle;
+    @FindBy(xpath = "(//a[text()='Kids']/parent::li)")
+    public WebElement kidTitle;
+    @FindBy(xpath = "(//a[text()='Accessories']/parent::li)")
+    public WebElement accessoriesTitle;
+    @FindBy(xpath = "(//a[text()='Icons']/parent::li)")
+    public WebElement iconsTitle;
+    @FindBy(xpath = "(//a[text()='New']/parent::li)")
+    public WebElement newTitle;
+
+    @FindBy(xpath = "//li[@class=\"LanguageDropdown_item__30Zk-\"]/a")
+    private java.util.List<WebElement> selectLanguage;
+    @FindBy(xpath = "(//li[@class=\"LanguageDropdown_item__30Zk-\"]/a)[1]")
+    private WebElement selectEnglishLanguage;
+
+
+
+    public HomePage(WebDriver driver) throws AWTException {
+        super(driver);
 
     }
-
-
-    @FindBy(xpath = "(//span[text()='Women']/parent::a)[1]")
-    public WebElement womenTitle;
-    @FindBy(xpath = "(//span[text()='Men']/parent::a)[1]")
-    public WebElement menTitle;
-    @FindBy(xpath = "(//span[text()='Kids']/parent::a)[1]")
-    public WebElement kidTitle;
-    @FindBy(xpath = "(//span[text()='Collections']/parent::a)[1]")
-    public WebElement collectionTitle;
-    @FindBy(xpath = "(//span[text()='Sale']/parent::a)[1]")
-    public WebElement salesTitle;
-
 
     public boolean verifyHomePageTitleAndMenu() {
 
@@ -35,7 +43,7 @@ public class HomePage extends BaseClass {
 
         String expected_title = "Moose Knuckles Canada | Official Website | We Bring The Heat | Moose Knuckles";
 
-        if (title.equals(expected_title) && womenTitle.isDisplayed() && menTitle.isDisplayed() && kidTitle.isDisplayed() && collectionTitle.isDisplayed() && salesTitle.isDisplayed()) {
+        if (title.equals(expected_title) && womenTitle.isDisplayed() && menTitle.isDisplayed() && kidTitle.isDisplayed() && accessoriesTitle.isDisplayed() && iconsTitle.isDisplayed() && newTitle.isDisplayed()) {
             System.out.println("Homepage title and Menu is displayed ");
             return true;
         } else
@@ -44,37 +52,21 @@ public class HomePage extends BaseClass {
 
     }
 
-    public void acceptPopupandCookies() throws InterruptedException {
-
-        boolean popup = driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']")).isDisplayed();
-        if (popup) {
-            driver.findElement(By.xpath("//div[@id='eshopworld-landing-page']//span[contains(text(),'Continue shopping')]")).click();
-            System.out.println("Popup Accepted");
+    public void acceptPopupandCookies() {
+        try {
 
 
-        } else {
-            System.out.println("Popup is not displayed");
+            boolean cookies = driver.findElement(By.xpath("//span[text()='Accept']")).isDisplayed();
 
-        }
+            if (cookies) {
+                driver.findElement(By.xpath("//span[text()='Accept']")).click();
+                log.info("Cookies accepted");
 
-        Thread.sleep(3000);
-
-        boolean cookies = driver.findElement(By.xpath("//button[@title='Allow Cookies']")).isDisplayed();
-
-        if (cookies) {
-            driver.findElement(By.xpath("//button[@title='Allow Cookies']")).click();
-            System.out.println("Cookies accepted");
-
-        } else {
-            System.out.println("Cookies alert is not displayed");
-        }
-        boolean newsLetter = driver.findElement(By.xpath("(//p[contains(text(),'Subscribe to our Newsletter')])[3]")).isDisplayed();
-        if (newsLetter) {
-            driver.findElement(By.xpath("//div[@class='mbdialog popupid11']//a[@class='dialogClose style1 overlay2']")).click();
-            System.out.println("NewsLetter Closed");
-
-        } else {
-            System.out.println("NewsLetter is not displayed");
+            } else {
+                log.info("Cookies alert is not displayed");
+            }
+        } catch (NoSuchElementException e) {
+            log.info("Exception Thrown is " + e);
 
         }
 
@@ -95,4 +87,24 @@ public class HomePage extends BaseClass {
 
 
     }
+
+    public boolean selectLanguage() {
+
+        for (int i = 0; i < selectLanguage.size(); i++) {
+            log.info("There are " + selectLanguage.size() + " Languages available");
+            if (selectLanguage.get(i).isEnabled()) {
+                log.info(selectLanguage.get(i).getText() + " is selected ");
+                selectLanguage.get(i).click();
+                return true;
+            } else {
+                return false;
+            }
+
+
+        }
+
+
+        return false;
+    }
+
 }
