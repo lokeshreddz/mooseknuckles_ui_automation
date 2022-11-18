@@ -77,6 +77,7 @@ public class BaseTest {
         log.info("Setup is completed successfully");
         HomePage homePage = new HomePage(driver);
         homePage.selectLanguage();
+        homePage.acceptCookies();
     }
 
     @AfterMethod

@@ -1,6 +1,5 @@
 package pageobjects;
 
-import lombok.SneakyThrows;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -27,9 +26,10 @@ public class HomePage extends PageBase {
 
     @FindBy(xpath = "//li[@class=\"LanguageDropdown_item__30Zk-\"]/a")
     private java.util.List<WebElement> selectLanguage;
-    @FindBy(xpath = "(//li[@class=\"LanguageDropdown_item__30Zk-\"]/a)[1]")
-    private WebElement selectEnglishLanguage;
-
+    @FindBy(xpath = "//div[@aria-expanded=\"true\"]")
+    private WebElement languageDropdownExpanded;
+    @FindBy(xpath = "//span[@role=\"button\"]")
+    private WebElement languageDropdown;
 
 
     public HomePage(WebDriver driver) throws AWTException {
@@ -52,7 +52,7 @@ public class HomePage extends PageBase {
 
     }
 
-    public void acceptPopupandCookies() {
+    public void acceptCookies() {
         try {
 
 
@@ -90,20 +90,22 @@ public class HomePage extends PageBase {
 
     public boolean selectLanguage() {
 
+        if (selectLanguage.get(1).isEnabled()) {
+            log.info("Currency Dropdown already opened");
+        } else {
+            languageDropdown.click();
+            log.info("clicked on language drop down");
+        }
+
         for (int i = 0; i < selectLanguage.size(); i++) {
             log.info("There are " + selectLanguage.size() + " Languages available");
             if (selectLanguage.get(i).isEnabled()) {
                 log.info(selectLanguage.get(i).getText() + " is selected ");
                 selectLanguage.get(i).click();
                 return true;
-            } else {
-                return false;
             }
 
-
         }
-
-
         return false;
     }
 

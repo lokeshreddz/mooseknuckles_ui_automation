@@ -1,35 +1,41 @@
 package pageobjects;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.FindBy;
+import pagebase.PageBase;
 
-public class WomenPage {
-    By firstproduct = By.xpath("(//li[@class='item product product-item']//strong[contains(@class,'product name product-item-name')]/a)[2]");
-    private WebDriver driver;
+import java.awt.*;
 
-    public WomenPage(WebDriver driver) {
-        this.driver = driver;
+public class WomenPage extends PageBase {
 
-        PageFactory.initElements(driver, this);
+    @FindBy(xpath = "(//a[text()='Women']/parent::li)")
+    public WebElement womenTitle;
+
+    @FindBy(xpath = "(//a[text()='Hybrids'])[1]")
+    public WebElement hybrids;
+
+    @FindBy(xpath = "(//div[@class=\"Plpgrid_Plpgrid__1SVDs\"]//div[@class=\"ProductTile_productitem-block__2sZ1u\"])[1]")
+    public WebElement firstProduct;
+
+
+    public WomenPage(WebDriver driver) throws AWTException {
+        super(driver);
+
     }
 
-    public void navigateToWomenModule() throws InterruptedException {
+    public void navigateToWomenModule() {
 
-        Thread.sleep(4000);
-
-        WebElement hover = driver.findElement(By.xpath("//a[text()='Women']/parent::li"));
-        WebElement hover1 = driver.findElement(By.xpath("//span[text()='Parkas']/parent::a"));
         Actions act = new Actions(driver);
-        act.moveToElement(hover).moveToElement(hover1).click().build().perform();
+        act.moveToElement(womenTitle).moveToElement(hybrids).click().build().perform();
+        log.info("Navigated to the Women's Page");
 
     }
 
-    public void selectProduct() throws InterruptedException {
-        Thread.sleep(4000);
-        driver.findElement(firstproduct).click();
+    public void selectProduct() {
+        firstProduct.click();
+        log.info("Clicked on the first product");
 
 
     }
