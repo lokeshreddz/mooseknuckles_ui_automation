@@ -63,13 +63,13 @@ public class CheckOutPage extends PageBase {
     public boolean completeShippingDetails() {
         try {
             firstNameTextBox.sendKeys(PropertyUtils.getValue(PropertyType.FIRSTNAME));
-            firstNameTextBox.sendKeys(PropertyUtils.getValue(PropertyType.LASTNAME));
-            firstNameTextBox.sendKeys(PropertyUtils.getValue(PropertyType.PHONENUMBER));
-            firstNameTextBox.sendKeys(PropertyUtils.getValue(PropertyType.STREETADDRESS1));
+            lastNameTextBox.sendKeys(PropertyUtils.getValue(PropertyType.LASTNAME));
+            phoneNumberTextBox.sendKeys(PropertyUtils.getValue(PropertyType.PHONENUMBER));
+            streetAddressTextBox.sendKeys(PropertyUtils.getValue(PropertyType.STREETADDRESS1));
             Select state = new Select(stateDropDown);
             state.selectByVisibleText(PropertyUtils.getValue(PropertyType.STATE));
-            firstNameTextBox.sendKeys(PropertyUtils.getValue(PropertyType.CITY));
-            firstNameTextBox.sendKeys(PropertyUtils.getValue(PropertyType.POSTALCODE));
+            cityTextBox.sendKeys(PropertyUtils.getValue(PropertyType.CITY));
+            postalCodeTextBox.sendKeys(PropertyUtils.getValue(PropertyType.POSTALCODE));
             saveAddressButton.click();
             return true;
 

@@ -31,6 +31,9 @@ public class HomePage extends PageBase {
     @FindBy(xpath = "//span[@role=\"button\"]")
     private WebElement languageDropdown;
 
+    @FindBy(xpath = "//div[@class=\"Dropdown_dropdown__2VWCj\"]")
+    private WebElement dropDownElement;
+
 
     public HomePage(WebDriver driver) throws AWTException {
         super(driver);
@@ -88,18 +91,19 @@ public class HomePage extends PageBase {
 
     }
 
-    public boolean selectLanguage() {
+    public boolean selectLanguage(String country) {
 
-        if (selectLanguage.get(1).isEnabled()) {
-            log.info("Currency Dropdown already opened");
+        if (dropDownElement.isEnabled()) {
+            log.info("Dropdown Already Opened ");
         } else {
             languageDropdown.click();
-            log.info("clicked on language drop down");
+            log.info("Clicked on Language Dropdown option");
         }
+
 
         for (int i = 0; i < selectLanguage.size(); i++) {
             log.info("There are " + selectLanguage.size() + " Languages available");
-            if (selectLanguage.get(i).isEnabled()) {
+            if (selectLanguage.get(i).getText().contains(country)) {
                 log.info(selectLanguage.get(i).getText() + " is selected ");
                 selectLanguage.get(i).click();
                 return true;

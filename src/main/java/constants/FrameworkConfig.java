@@ -22,5 +22,8 @@ public interface FrameworkConfig extends Config {
 
     int explicitWait();
 
+    @DefaultValue("Canada")
+    String languagecountry();
+
 
 }

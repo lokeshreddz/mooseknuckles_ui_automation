@@ -36,7 +36,7 @@ public class AddtoCartPage extends PageBase {
 
     public boolean secureCheckout() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
             secureCheckoutButton.click();
             return true;
         } catch (Exception e) {

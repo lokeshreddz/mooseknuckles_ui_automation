@@ -31,6 +31,7 @@ public class BaseTest {
     protected Logger log = Logger.getLogger(this.getClass().getName());
     FrameworkConfig frameworkConfig = ConfigFactory.create(FrameworkConfig.class);
 
+
     public BaseTest() {
     }
 
@@ -76,7 +77,7 @@ public class BaseTest {
         setUp(frameworkConfig.browser());
         log.info("Setup is completed successfully");
         HomePage homePage = new HomePage(driver);
-        homePage.selectLanguage();
+        homePage.selectLanguage(frameworkConfig.languagecountry());
         homePage.acceptCookies();
     }
 
