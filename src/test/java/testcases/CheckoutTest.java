@@ -3,14 +3,16 @@ package testcases;
 import lombok.SneakyThrows;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pageobjects.*;
+import pageobjects.AddtoCartPage;
+import pageobjects.CheckOutPage;
+import pageobjects.WomenPage;
 import testbase.BaseTest;
 
 public class CheckoutTest extends BaseTest {
 
     @SneakyThrows
     @Test
-    public void E2Eflow()  {
+    public void E2Eflow() {
         WomenPage womenPage = new WomenPage(driver);
         womenPage.navigateToWomenModule();
         womenPage.selectProduct();

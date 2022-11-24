@@ -19,9 +19,4 @@ public enum PropertyType {
     NAMEONCARD
 
 
-
-
-
-
-
 }

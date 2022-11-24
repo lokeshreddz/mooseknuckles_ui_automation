@@ -1,7 +1,7 @@
 package pageobjects;
 
 import enums.PropertyType;
-import org.openqa.selenium.Keys;
+import lombok.SneakyThrows;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -64,8 +64,14 @@ public class CheckOutPage extends PageBase {
     @FindBy(xpath = "//span[text()='Place Order ']")
     public WebElement placeOrderButton;
 
-    @FindBy(tagName = "iframe")
-    public WebElement paymentFrame;
+    @FindBy(xpath = "//iframe[@title=\"Iframe for secured card number\"]")
+    public WebElement cardNumberIframe;
+
+    @FindBy(xpath = "//iframe[@title=\"Iframe for secured card expiry date\"]")
+    public WebElement expiryIframe;
+
+    @FindBy(xpath = "//iframe[@title=\"Iframe for secured card security code\"]")
+    public WebElement cvvIframe;
 
 
     public CheckOutPage(WebDriver driver) throws AWTException {
@@ -108,16 +114,24 @@ public class CheckOutPage extends PageBase {
         }
     }
 
+    @SneakyThrows
     public boolean completePaymentAndPlaceTheOrder() {
 
 
         creditCardButton.click();
-        driver.switchTo().frame(paymentFrame);
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(cardNumberTextBox)).click();
+        driver.switchTo().frame(cardNumberIframe);
+        Thread.sleep(5000);
         cardNumberTextBox.sendKeys(PropertyUtils.getValue(PropertyType.CARDNUMBER));
-        cardNumberTextBox.sendKeys(Keys.TAB);
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame(expiryIframe);
+        Thread.sleep(2000);
         expiryDateTextBox.sendKeys(PropertyUtils.getValue(PropertyType.EXPIRY));
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame(cvvIframe);
+        Thread.sleep(2000);
         cvvTextBox.sendKeys(PropertyUtils.getValue(PropertyType.CVV));
+        driver.switchTo().defaultContent();
+        Thread.sleep(2000);
         nameOnCardTextBox.sendKeys(PropertyUtils.getValue(PropertyType.NAMEONCARD));
         placeOrderButton.click();
         return true;

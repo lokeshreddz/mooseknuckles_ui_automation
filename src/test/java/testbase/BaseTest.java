@@ -65,7 +65,6 @@ public class BaseTest {
         log.info("Navigated to : " + frameworkConfig.url());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(frameworkConfig.implicitWait()));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(frameworkConfig.explicitWait()));
 
     }
 
