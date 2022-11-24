@@ -20,10 +20,8 @@ public class CheckoutTest extends BaseTest {
         CheckOutPage checkOutPage = new CheckOutPage(driver);
         Assert.assertTrue(checkOutPage.completeContactInformation());
         Assert.assertTrue(checkOutPage.completeShippingDetails());
-        ShippingPage shippingPage = new ShippingPage(driver);
-        shippingPage.passShippingDetails();
-        PaymentPage paymentPage = new PaymentPage(driver);
-        paymentPage.ClickPlaceOrder();
+        Assert.assertTrue(checkOutPage.completePaymentAndPlaceTheOrder());
+
 
     }
 }

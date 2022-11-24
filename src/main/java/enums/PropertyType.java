@@ -12,7 +12,11 @@ public enum PropertyType {
     CITY,
     STATE,
     STREET,
-    POSTALCODE
+    POSTALCODE,
+    CARDNUMBER,
+    EXPIRY,
+    CVV,
+    NAMEONCARD
 
 
 

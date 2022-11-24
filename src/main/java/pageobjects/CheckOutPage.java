@@ -1,14 +1,18 @@
 package pageobjects;
 
 import enums.PropertyType;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pagebase.PageBase;
 import pagebase.PropertyUtils;
 
 import java.awt.*;
+import java.time.Duration;
 
 public class CheckOutPage extends PageBase {
 
@@ -27,7 +31,7 @@ public class CheckOutPage extends PageBase {
     @FindBy(xpath = "(//input[@name=\"telephone\"])[1]")
     public WebElement phoneNumberTextBox;
 
-    @FindBy(xpath = "(//input[@name=\"street.0\"])[1]")
+    @FindBy(xpath = "(//input[@name=\"street[0]\"])[1]")
     public WebElement streetAddressTextBox;
 
     @FindBy(xpath = "(//input[@name=\"city\"])[1]")
@@ -40,6 +44,29 @@ public class CheckOutPage extends PageBase {
     @FindBy(xpath = "(//span[text()='Save Address'])[1]")
     public WebElement saveAddressButton;
 
+    @FindBy(xpath = "//button[@aria-label=\"Continue to Payment\"]")
+    public WebElement continueToPaymentButton;
+
+    @FindBy(xpath = "//button[@aria-label=\"Credit Card\"]")
+    public WebElement creditCardButton;
+
+    @FindBy(xpath = "//input[@aria-label=\"Card number\"]")
+    public WebElement cardNumberTextBox;
+
+    @FindBy(xpath = "//input[@aria-label=\"Expiry date\"]")
+    public WebElement expiryDateTextBox;
+
+    @FindBy(xpath = "//input[@aria-label=\"Security code\"]")
+    public WebElement cvvTextBox;
+    @FindBy(xpath = "//input[@name=\"holderName\"]")
+    public WebElement nameOnCardTextBox;
+
+    @FindBy(xpath = "//span[text()='Place Order ']")
+    public WebElement placeOrderButton;
+
+    @FindBy(tagName = "iframe")
+    public WebElement paymentFrame;
+
 
     public CheckOutPage(WebDriver driver) throws AWTException {
         super(driver);
@@ -48,8 +75,9 @@ public class CheckOutPage extends PageBase {
     public boolean completeContactInformation() {
 
         try {
+            new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(emailTextBox)).click();
             emailTextBox.sendKeys(PropertyUtils.getValue(PropertyType.EMAIL));
-            continueShippingButton.click();
+            new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(continueShippingButton)).click();
             return true;
         } catch (Exception e) {
             log.error("Exception Error is " + e);
@@ -71,12 +99,29 @@ public class CheckOutPage extends PageBase {
             cityTextBox.sendKeys(PropertyUtils.getValue(PropertyType.CITY));
             postalCodeTextBox.sendKeys(PropertyUtils.getValue(PropertyType.POSTALCODE));
             saveAddressButton.click();
+            new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(continueToPaymentButton)).click();
             return true;
 
         } catch (Exception e) {
             log.error("Exception Error is " + e);
             return false;
         }
+    }
+
+    public boolean completePaymentAndPlaceTheOrder() {
+
+
+        creditCardButton.click();
+        driver.switchTo().frame(paymentFrame);
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(cardNumberTextBox)).click();
+        cardNumberTextBox.sendKeys(PropertyUtils.getValue(PropertyType.CARDNUMBER));
+        cardNumberTextBox.sendKeys(Keys.TAB);
+        expiryDateTextBox.sendKeys(PropertyUtils.getValue(PropertyType.EXPIRY));
+        cvvTextBox.sendKeys(PropertyUtils.getValue(PropertyType.CVV));
+        nameOnCardTextBox.sendKeys(PropertyUtils.getValue(PropertyType.NAMEONCARD));
+        placeOrderButton.click();
+        return true;
+
     }
 
 
