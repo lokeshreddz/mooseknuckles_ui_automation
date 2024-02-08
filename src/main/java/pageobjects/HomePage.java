@@ -28,7 +28,7 @@ public class HomePage extends PageBase {
     private java.util.List<WebElement> selectLanguage;
     @FindBy(xpath = "//div[@aria-expanded=\"true\"]")
     private WebElement languageDropdownExpanded;
-    @FindBy(xpath = "//span[@role=\"button\"]")
+    @FindBy(xpath = "//span[@class=\"text-white uppercase font-bold language-highlighter\"]")
     private WebElement languageDropdown;
 
     @FindBy(xpath = "//div[@class=\"Dropdown_dropdown__2VWCj\"]")
@@ -93,12 +93,9 @@ public class HomePage extends PageBase {
 
     public boolean selectLanguage(String country) {
 
-        if (dropDownElement.isEnabled()) {
-            log.info("Dropdown Already Opened ");
-        } else {
-            languageDropdown.click();
-            log.info("Clicked on Language Dropdown option");
-        }
+
+        languageDropdown.click();
+        log.info("Clicked on Language Dropdown option");
 
 
         for (int i = 0; i < selectLanguage.size(); i++) {

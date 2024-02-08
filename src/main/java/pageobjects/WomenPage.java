@@ -1,5 +1,7 @@
 package pageobjects;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -10,11 +12,11 @@ import java.awt.*;
 
 public class WomenPage extends PageBase {
 
-    @FindBy(xpath = "(//a[text()='Women']/parent::li)")
+    @FindBy(xpath = "(//a[text()='Women']/parent::li)[3]")
     public WebElement womenTitle;
 
-    @FindBy(xpath = "(//a[text()='Hybrids'])[1]")
-    public WebElement hybrids;
+    @FindBy(xpath = "(//a[text()=\"Parkas\"])[4]")
+    public WebElement parkas;
 
     @FindBy(xpath = "(//div[@class=\"Plpgrid_Plpgrid__1SVDs\"]//div[@class=\"ProductTile_productitem-block__2sZ1u\"])[1]")
     public WebElement firstProduct;
@@ -28,10 +30,13 @@ public class WomenPage extends PageBase {
     public void navigateToWomenModule() {
 
         Actions act = new Actions(driver);
-        act.moveToElement(womenTitle).moveToElement(hybrids).click().build().perform();
-        log.info("Navigated to the Women's Page");
+        act.moveToElement(womenTitle).moveToElement(parkas).click().build().perform();
+        log.info("Navigated to the Women's Page Outdoor -Parkas");
+        closeJoinTheHeadPopUp();
 
     }
+
+
 
     public void selectProduct() {
         firstProduct.click();
