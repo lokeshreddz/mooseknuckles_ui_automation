@@ -1,7 +1,6 @@
 package pageobjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -29,13 +28,18 @@ public class WomenPage extends PageBase {
 
     public void navigateToWomenModule() {
 
-        Actions act = new Actions(driver);
-        act.moveToElement(womenTitle).moveToElement(parkas).click().build().perform();
-        log.info("Navigated to the Women's Page Outdoor -Parkas");
-        closeJoinTheHeadPopUp();
+        try {
+            Actions action = new Actions(driver);
+            //action.moveToElement(womenTitle).moveToElement(parkas).click().build().perform();
+            driver.get("https://pylotstage.mooseknucklescanada.com/us-en/c/women/outerwear/parkas");
+            log.info("Navigated to the Women's Page Outdoor -Parkas");
+            closeJoinTheHeadPopUp();
+        } catch (StaleElementReferenceException e) {
+            driver.get("https://pylotstage.mooseknucklescanada.com/us-en/c/women/outerwear/parkas");
+            log.info("Navigated to the Women sub menu ");
 
+        }
     }
-
 
 
     public void selectProduct() {

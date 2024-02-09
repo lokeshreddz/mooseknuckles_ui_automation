@@ -41,13 +41,13 @@ public class CheckOutPage extends PageBase {
     public WebElement postalCodeTextBox;
     @FindBy(id = "shipping_region")
     public WebElement stateDropDown;
-    @FindBy(xpath = "(//span[text()='Save Address'])[1]")
-    public WebElement saveAddressButton;
+    @FindBy(xpath = "(//button[@type=\"submit\"])[2]")
+    public WebElement confirmAddress;
 
     @FindBy(xpath = "//button[@aria-label=\"Continue to Payment\"]")
     public WebElement continueToPaymentButton;
 
-    @FindBy(xpath = "//button[@aria-label=\"Credit Card\"]")
+    @FindBy(xpath = "//span[text()=\"Credit Card\"]")
     public WebElement creditCardButton;
 
     @FindBy(xpath = "//input[@aria-label=\"Card number\"]")
@@ -61,7 +61,7 @@ public class CheckOutPage extends PageBase {
     @FindBy(xpath = "//input[@name=\"holderName\"]")
     public WebElement nameOnCardTextBox;
 
-    @FindBy(xpath = "//span[text()='Place Order ']")
+    @FindBy(xpath = "//span[contains(text(),'Place Order ')]")
     public WebElement placeOrderButton;
 
     @FindBy(xpath = "//iframe[@title=\"Iframe for secured card number\"]")
@@ -81,9 +81,11 @@ public class CheckOutPage extends PageBase {
     public boolean completeContactInformation() {
 
         try {
+            Thread.sleep(5000);
             new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(emailTextBox)).click();
             emailTextBox.sendKeys(PropertyUtils.getValue(PropertyType.EMAIL));
             new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(continueShippingButton)).click();
+            log.info("EmailID provided and clicked on continue shipping button");
             return true;
         } catch (Exception e) {
             log.error("Exception Error is " + e);
@@ -104,8 +106,9 @@ public class CheckOutPage extends PageBase {
             state.selectByVisibleText(PropertyUtils.getValue(PropertyType.STATE));
             cityTextBox.sendKeys(PropertyUtils.getValue(PropertyType.CITY));
             postalCodeTextBox.sendKeys(PropertyUtils.getValue(PropertyType.POSTALCODE));
-            saveAddressButton.click();
+            confirmAddress.click();
             new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(continueToPaymentButton)).click();
+            log.info("Shipping Details completed");
             return true;
 
         } catch (Exception e) {
@@ -134,6 +137,7 @@ public class CheckOutPage extends PageBase {
         Thread.sleep(2000);
         nameOnCardTextBox.sendKeys(PropertyUtils.getValue(PropertyType.NAMEONCARD));
         placeOrderButton.click();
+        log.info("Order Placed ");
         return true;
 
     }
